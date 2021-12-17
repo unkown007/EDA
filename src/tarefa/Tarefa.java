@@ -30,6 +30,51 @@ public class Tarefa {
         lista.inserir(eq);
     }
     
+    public static void removerEquipamento(Lista<Equipamento> lista) throws IOException {
+        int pos;
+        
+        pos = Validacao.inteiro("ID: ", 1, 99999);
+        
+        lista.remover(pos);
+    }
+    
+    public static void alterarEquipamento(Lista<Equipamento> lista) throws IOException {
+        int pos;
+        No<Equipamento> no;
+        Lista<AplicacaoInstalada> app;
+        Lista<PlacaRede> rede;
+        
+        pos = Validacao.inteiro("ID: ", 1, 99999);
+        
+        no = lista.getNo(pos);
+        app = no.ob.getApp();
+        rede = no.ob.getRede();
+        
+        String dataAquisicao = Validacao.texto("Data de aquisicao: ");
+        byte garantia =(byte) Validacao.inteiro("Grantia(mes): ", 0, 130);
+        int discoDuro = Validacao.inteiro("Capacidade(GB): ", 1, 99999);
+        float cpu = Validacao.real("CPU(Ghz): ", 1.0f, 10f);
+        byte ram =(byte) Validacao.inteiro("Memoria(GB): ", 1, 1000);
+        String so = Validacao.texto("Sistema Operativo: ");
+        
+        System.out.println("Aplicacoes Instaladas\n");
+        cudAppInstalada(app);
+        
+        System.out.println("Placas de Rede\n");
+        cudPlacaRede(rede);
+        
+        no.ob.setDataAquisicao(dataAquisicao);
+        no.ob.setGarantia(garantia);
+        no.ob.setDiscoDuro(discoDuro);
+        no.ob.setCPU(cpu);
+        no.ob.setRAM(ram);
+        no.ob.setSistemaOperacinal(so);
+        no.ob.setApp(app);
+        no.ob.setRede(rede);
+        
+        lista.actualizar(pos, no);
+    }
+    
     public static void addAppInstaladas(Lista<AplicacaoInstalada> lista) throws IOException {
         boolean st = true;
         byte op;
@@ -113,31 +158,50 @@ public class Tarefa {
         
         lista.actualizar(pos, no);
     }
-     
-    public static void removerEquipamento(Lista<Equipamento> lista) throws IOException {
-        int pos;
+    
+    public static void cudPlacaRede(Lista<PlacaRede> lista) throws IOException {
+        byte op;
         
-        pos = Validacao.inteiro("ID: ", 1, 99999);
-        
-        lista.remover(pos);
+        do {
+            System.out.println("1. Inserir");
+            System.out.println("2. Remover");
+            System.out.println("3. Actualizar");
+            System.out.println("0. Voltar");
+            op =(byte) Validacao.inteiro("Opcao: ", 0, 3);
+            switch(op) {
+                case 1:
+                    addPlacaRede(lista);
+                break;
+                case 2:
+                    rmPlacaRede(lista);
+                break;
+                case 3:
+                    alterarPlacaRede(lista);
+                break;
+            }
+        }while(op != 0);
     }
     
-    public static void alterarEquipamento(Lista<Equipamento> lista) throws IOException {
-        int pos;
-        No<Equipamento> no;
+    public static void cudAppInstalada(Lista<AplicacaoInstalada> lista) throws IOException {
+        byte op;
         
-        pos = Validacao.inteiro("ID: ", 1, 99999);
-        
-        no = lista.getNo(pos);
-        
-        String dataAquisicao = Validacao.texto("Data de aquisicao: ");
-        byte garantia =(byte) Validacao.inteiro("Grantia(mes): ", 0, 130);
-        int discoDuro = Validacao.inteiro("Capacidade(GB): ", 1, 99999);
-        float cpu = Validacao.real("CPU(Ghz): ", 1.0f, 10f);
-        byte ram =(byte) Validacao.inteiro("Memoria(GB): ", 1, 1000);
-        String so = Validacao.texto("Sistema Operativo: ");
-        
-        System.out.println("Aplicacoes Instaladas\n");
-        
+        do {
+            System.out.println("1. Inserir");
+            System.out.println("2. Remover");
+            System.out.println("3. Actualizar");
+            System.out.println("0. Voltar");
+            op =(byte) Validacao.inteiro("Opcao: ", 0, 3);
+            switch(op) {
+                case 1:
+                    addAppInstaladas(lista);
+                break;
+                case 2:
+                    rmAppInstaladas(lista);
+                break;
+                case 3:
+                    alterarAppInstaladas(lista);
+                break;
+            }
+        }while(op != 0);
     }
 }

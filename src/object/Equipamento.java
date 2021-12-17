@@ -26,6 +26,10 @@ public class Equipamento {
         this.rede = rede;
     }
     
+    public static <T extends Lista> void verlista(T ob) {
+        ob.mostrar();
+    }
+    
     //METODOS GETTERS
 
     public String getDataAquisicao() {

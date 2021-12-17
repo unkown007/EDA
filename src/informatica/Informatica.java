@@ -15,6 +15,11 @@ public class Informatica {
         Tarefa.addEquipamento(app);
         
         app.mostrar();
+        
+        Tarefa.alterarEquipamento(app);
+        
+        app.getNo(1).ob.getApp().mostrar();
+       
     }
 
 }
