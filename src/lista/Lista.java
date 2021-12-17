@@ -56,6 +56,8 @@ public class Lista<D> implements Operacoes<D> {
         else
             ant.proximo = atual.proximo;
         
+        tamanho--;
+        
         return 1;
     }
     
