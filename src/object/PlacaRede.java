@@ -1,4 +1,4 @@
-package informatica;
+package object;
 
 public class PlacaRede {
     private String enderecoIP;
