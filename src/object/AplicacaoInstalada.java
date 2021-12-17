@@ -9,7 +9,7 @@ public class AplicacaoInstalada {
     private String versao;
     private String validade;
 
-    public AplicacaoInstalada(String descricao, String versao, String validade, String data_duracao, int garantia, int discoDuro, String sistemaOperacinal) {
+    public AplicacaoInstalada(String descricao, String versao, String validade) {
         this.descricao = descricao;
         this.versao = versao;
         this.validade = validade;

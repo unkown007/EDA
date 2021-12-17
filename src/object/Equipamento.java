@@ -1,5 +1,7 @@
 package object;
 
+import lista.*;
+
 public class Equipamento {
     private String dataAquisicao;
     private byte garantia;
@@ -7,18 +9,16 @@ public class Equipamento {
     private float CPU;
     private byte RAM;
     private String sistemaOperacinal;
-    private AplicacaoInstalada app;
-    private PlacaRede rede;
+    private Lista<AplicacaoInstalada> app;
+    private Lista<PlacaRede> rede;
 
-    public Equipamento(String dataAquisicao, byte garantia, int discoDuro, float CPU, byte RAM, String sistemaOperacinal, AplicacaoInstalada app, PlacaRede rede) {
+    public Equipamento(String dataAquisicao, byte garantia, int discoDuro, float CPU, byte RAM, String sistemaOperacinal) {
         this.dataAquisicao = dataAquisicao;
         this.garantia = garantia;
         this.discoDuro = discoDuro;
         this.CPU = CPU;
         this.RAM = RAM;
         this.sistemaOperacinal = sistemaOperacinal;
-        this.app = app;
-        this.rede = rede;
     }
     
     //METODOS GETTERS
@@ -47,11 +47,11 @@ public class Equipamento {
         return sistemaOperacinal;
     }
 
-    public AplicacaoInstalada getApp() {
+    public Lista<AplicacaoInstalada> getApp() {
         return app;
     }
 
-    public PlacaRede getRede() {
+    public Lista<PlacaRede> getRede() {
         return rede;
     }
     
@@ -78,11 +78,11 @@ public class Equipamento {
         this.RAM = RAM;
     }
 
-    public void setApp(AplicacaoInstalada app) {
+    public void setApp(Lista<AplicacaoInstalada> app) {
         this.app = app;
     }
     
-    public void setRede(PlacaRede rede) {
+    public void setRede(Lista<PlacaRede> rede) {
         this.rede = rede;
     }
 
