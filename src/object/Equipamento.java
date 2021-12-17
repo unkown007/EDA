@@ -12,13 +12,18 @@ public class Equipamento {
     private Lista<AplicacaoInstalada> app;
     private Lista<PlacaRede> rede;
 
-    public Equipamento(String dataAquisicao, byte garantia, int discoDuro, float CPU, byte RAM, String sistemaOperacinal) {
+    public Equipamento(String dataAquisicao, byte garantia, int discoDuro,
+                       float CPU, byte RAM, String sistemaOperacinal,
+                       Lista<AplicacaoInstalada> app,
+                       Lista<PlacaRede> rede) {
         this.dataAquisicao = dataAquisicao;
         this.garantia = garantia;
         this.discoDuro = discoDuro;
         this.CPU = CPU;
         this.RAM = RAM;
         this.sistemaOperacinal = sistemaOperacinal;
+        this.app = app;
+        this.rede = rede;
     }
     
     //METODOS GETTERS

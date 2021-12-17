@@ -8,13 +8,12 @@ package validacao;
 import java.io.*;
 
 public class Validacao {
-    private BufferedReader x;
+    private static BufferedReader x = new BufferedReader (new InputStreamReader(System.in));
 
     public Validacao(){
-	x = new BufferedReader (new InputStreamReader(System.in));
     }
 
-    public int inteiro(String msg, int min, int max)throws IOException {
+    public static int inteiro(String msg, int min, int max)throws IOException {
 	int valor;
 		
 	do{
@@ -27,7 +26,7 @@ public class Validacao {
 	return valor;
 	}
 
-    public float real(String msg, float min, float max)throws IOException {
+    public static float real(String msg, float min, float max)throws IOException {
 	float valor;
 		
 	do{
@@ -40,7 +39,7 @@ public class Validacao {
 	return valor;
 	}
 
-    public String texto(String msg)throws IOException {
+    public static String texto(String msg)throws IOException {
         System.out.print(msg+"\t");
             String text = x.readLine();
 	return text;
