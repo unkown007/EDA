@@ -4,11 +4,12 @@ package object;
  *
  * @author vm
  */
-public class AplicacaoInstalada {
+public class AplicacaoInstalada implements Table {
     private String descricao;
     private String versao;
     private String validade;
-
+    private String format = "%-40s %-20s %-20s";
+    
     public AplicacaoInstalada(String descricao, String versao, String validade) {
         this.descricao = descricao;
         this.versao = versao;
@@ -35,9 +36,12 @@ public class AplicacaoInstalada {
     public void setValidade(String validade) {
         this.validade = validade;
     }
+    
+    public void tableHeader(){
+        System.out.println(String.format(format,"Descricao","Versao","Validade"));
+    }
 
     public String toString() {
-        return "\nAplicacao Instalada:" + "\nDescricao:\t" 
-            + descricao + "\nVersao:\t" + versao + "\nValidade:\t" + validade;
+        return String.format(format, this.descricao, this.versao, this.validade);
     }
 }

@@ -1,9 +1,10 @@
 package object;
 
-public class PlacaRede {
+public class PlacaRede implements Table {
     private String enderecoIP;
     private String mascaraRede;
     private String enderecoBroadcast;
+    private String format = "%-20s %-20s %-20s";
     
     public PlacaRede(String enderecoIP, String mascaraRede, String enderecoBroadcast) {
         this.enderecoIP = enderecoIP;
@@ -32,10 +33,13 @@ public class PlacaRede {
     public void setEnderecoBroadcast(String enderecoBroadcast) {
         this.enderecoBroadcast = enderecoBroadcast;
     }
-
+    
+    public void tableHeader(){
+        System.out.println(String.format(format,"IP","Mascara","BroadCast"));
+    }
+    
     public String toString() {
-        return "Placa de Rede:" + "\nEndereco de IP:\t" + enderecoIP 
-        + "\nMascara de Rede:\t" + mascaraRede + "\nEndereco Broadcast:\t" + enderecoBroadcast;
+        return String.format(format, this.enderecoIP, this.mascaraRede, this.enderecoBroadcast);
     }
     
     

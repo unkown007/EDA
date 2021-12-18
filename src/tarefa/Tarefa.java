@@ -15,14 +15,14 @@ public class Tarefa {
         String so = Validacao.texto("Sistema Operativo: ");
         
         // add aplicacoes instaladas
-        System.out.println("Aplicacoes Instaladas\n");
+        //System.out.println("Aplicacoes Instaladas\n");
         var app = new Lista<AplicacaoInstalada>();
-        addAppInstaladas(app);
+        //addAppInstaladas(app);
         
         //add placas de rede
-        System.out.println("Placas de Rede\n");
+        //System.out.println("Placas de Rede\n");
         var placa = new Lista<PlacaRede>();
-        addPlacaRede(placa);
+        //addPlacaRede(placa);
         
         Equipamento eq = new Equipamento(dataAquisicao, garantia,
                                          discoDuro, cpu, ram,

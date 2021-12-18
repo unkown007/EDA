@@ -2,7 +2,7 @@ package object;
 
 import lista.*;
 
-public class Equipamento {
+public class Equipamento implements Table {
     private String dataAquisicao;
     private byte garantia;
     private int discoDuro;
@@ -11,7 +11,8 @@ public class Equipamento {
     private String sistemaOperacinal;
     private Lista<AplicacaoInstalada> app;
     private Lista<PlacaRede> rede;
-
+    private String format = "%-20s %-20s %-20s %-20s %-20s %-20s";
+    
     public Equipamento(String dataAquisicao, byte garantia, int discoDuro,
                        float CPU, byte RAM, String sistemaOperacinal,
                        Lista<AplicacaoInstalada> app,
@@ -95,8 +96,14 @@ public class Equipamento {
         this.rede = rede;
     }
 
-    public String toString() {
-        return "Equipamento:" + "\nData de duracao:\t" + dataAquisicao + "\nGarantia:\t" + garantia + "\nMemoria do Disco Duro:\t"
-        + discoDuro + "\nSistema Operacinal:\t" + sistemaOperacinal;
+    public void tableHeader(){
+        System.out.println(String.format(format,"Data de Aquisicao","Garantia",
+                                                 "Capacidade(GB)","CPU(Ghz)",
+                                                 "Memoria(GB)","Sistema Operativo"));
     }
+    
+    @Override
+    public String toString() {
+        return String.format(format, this.dataAquisicao, this.garantia, this.discoDuro, this.CPU, this.RAM, this.sistemaOperacinal);
+    }   
 }

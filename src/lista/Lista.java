@@ -1,7 +1,9 @@
 package lista;
 
-public class Lista<D> implements Operacoes<D> {
-    private No<D> inicio;
+import object.Table;
+
+public class Lista<D extends Table> implements Operacoes<D> {
+    public No<D> inicio;
     private int tamanho;
     
     public Lista() {
@@ -102,6 +104,7 @@ public class Lista<D> implements Operacoes<D> {
         
         if(vazia()) return;
         
+        aux.ob.tableHeader();
         while(aux != null) {
             System.out.println(aux.ob.toString());
             aux = aux.proximo;

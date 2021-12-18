@@ -13,13 +13,16 @@ public class Informatica {
         
         var app = new Lista<Equipamento>();
         Tarefa.addEquipamento(app);
+        Tarefa.addEquipamento(app);
         
+        //app.mostrar();
+        
+        //Tarefa.alterarEquipamento(app);
+        
+        //app.getNo(1).ob.getApp().mostrar();
+        
+        //PlacaRede.tableHeader();
         app.mostrar();
-        
-        Tarefa.alterarEquipamento(app);
-        
-        app.getNo(1).ob.getApp().mostrar();
-       
     }
 
 }
