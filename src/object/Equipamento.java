@@ -102,7 +102,6 @@ public class Equipamento implements Table {
                                                  "Memoria(GB)","Sistema Operativo"));
     }
     
-    @Override
     public String toString() {
         return String.format(format, this.dataAquisicao, this.garantia, this.discoDuro, this.CPU, this.RAM, this.sistemaOperacinal);
     }   
