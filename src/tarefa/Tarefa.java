@@ -1,13 +1,20 @@
 package tarefa;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import object.*;
 import lista.*;
 import validacao.Validacao;
 
 public class Tarefa {
-    public static void addEquipamento(Lista<Equipamento> lista) throws IOException {
-        String dataAquisicao = Validacao.texto("Data de aquisicao: ");
+    public static void addEquipamento(Lista<Equipamento> lista) throws IOException, ParseException {
+        var dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Equipamento\n");
+        String dataAquisicao = Validacao.texto("Data de aquisicao (dd/mm/yyyy): ");
+        var dataUsuario = dataFormatada.parse(dataAquisicao);
         byte garantia =(byte) Validacao.inteiro("Grantia(mes): ", 0, 130);
         int discoDuro = Validacao.inteiro("Capacidade(GB): ", 1, 99999);
         float cpu = Validacao.real("CPU(Ghz): ", 1.0f, 10f);
@@ -17,14 +24,14 @@ public class Tarefa {
         // add aplicacoes instaladas
         //System.out.println("Aplicacoes Instaladas\n");
         var app = new Lista<AplicacaoInstalada>();
-        //addAppInstaladas(app);
+        addAppInstaladas(app);
         
         //add placas de rede
         //System.out.println("Placas de Rede\n");
         var placa = new Lista<PlacaRede>();
         //addPlacaRede(placa);
         
-        Equipamento eq = new Equipamento(dataAquisicao, garantia,
+        Equipamento eq = new Equipamento(dataUsuario, garantia,
                                          discoDuro, cpu, ram,
                                          so, app, placa);
         lista.inserir(eq);
@@ -38,7 +45,7 @@ public class Tarefa {
         lista.remover(pos);
     }
     
-    public static void alterarEquipamento(Lista<Equipamento> lista) throws IOException {
+    public static void alterarEquipamento(Lista<Equipamento> lista) throws IOException, ParseException {
         int pos;
         No<Equipamento> no;
         Lista<AplicacaoInstalada> app;
@@ -50,7 +57,9 @@ public class Tarefa {
         app = no.ob.getApp();
         rede = no.ob.getRede();
         
+        var dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
         String dataAquisicao = Validacao.texto("Data de aquisicao: ");
+        var dataUsuario = dataFormatada.parse(dataAquisicao);
         byte garantia =(byte) Validacao.inteiro("Grantia(mes): ", 0, 130);
         int discoDuro = Validacao.inteiro("Capacidade(GB): ", 1, 99999);
         float cpu = Validacao.real("CPU(Ghz): ", 1.0f, 10f);
@@ -63,7 +72,7 @@ public class Tarefa {
         System.out.println("Placas de Rede\n");
         cudPlacaRede(rede);
         
-        no.ob.setDataAquisicao(dataAquisicao);
+        no.ob.setDataAquisicao(dataUsuario);
         no.ob.setGarantia(garantia);
         no.ob.setDiscoDuro(discoDuro);
         no.ob.setCPU(cpu);
@@ -75,15 +84,23 @@ public class Tarefa {
         lista.actualizar(pos, no);
     }
     
-    public static void addAppInstaladas(Lista<AplicacaoInstalada> lista) throws IOException {
+    public static void addAppInstaladas(Lista<AplicacaoInstalada> lista) throws IOException, ParseException {
         boolean st = true;
         byte op;
-        
+        GregorianCalendar gc = new GregorianCalendar();
         while(st) {
+            var dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
             String desc = Validacao.texto("Descricao: ");
             String versao = Validacao.texto("Versao: ");
-            String validade = Validacao.texto("Validade: ");
-            AplicacaoInstalada tmp = new AplicacaoInstalada(desc,versao,validade);
+            byte validade = (byte)Validacao.inteiro("Validade [1 - 30 dias]: ",1,999);
+            
+            gc.add(gc.MONTH, validade); // pega a data atual do calendario e acrecenta somente o mes
+                                        //conforme o numero de validade, mantendo o dia da semana 
+                                        
+            var dataUsuario = dataFormatada.parse(dataFormatada.format(gc.getTime()));
+            
+            AplicacaoInstalada tmp = new AplicacaoInstalada(desc,versao,dataUsuario);
+            
             lista.inserir(tmp);
             op =(byte) Validacao.inteiro("Continuar a inserir?\n1. Sim\n2. Nao\nOpcao: ",
                                           1, 2);
@@ -99,21 +116,23 @@ public class Tarefa {
         lista.remover(pos);
     }
     
-    public static void alterarAppInstaladas(Lista<AplicacaoInstalada> lista) throws IOException {
+    public static void alterarAppInstaladas(Lista<AplicacaoInstalada> lista) throws IOException, ParseException {
         int pos;
         
         pos = Validacao.inteiro("ID: ", 1, 99999);
         
         No<AplicacaoInstalada> no = lista.getNo(pos);
         
+        var dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Nova Informacao\n");
         String desc = Validacao.texto("Descricao: ");
         String versao = Validacao.texto("Versao: ");
-        String validade = Validacao.texto("Validade: ");
+        String validade = Validacao.texto("Validade (dd/mm/yyyy): ");
+        var dataUsuario = dataFormatada.parse(validade);
         
         no.ob.setDescricao(desc);
         no.ob.setVersao(versao);
-        no.ob.setValidade(validade);
+        no.ob.setValidade(dataUsuario);
         
         lista.actualizar(pos, no);
     }
@@ -182,7 +201,7 @@ public class Tarefa {
         }while(op != 0);
     }
     
-    public static void cudAppInstalada(Lista<AplicacaoInstalada> lista) throws IOException {
+    public static void cudAppInstalada(Lista<AplicacaoInstalada> lista) throws IOException, ParseException {
         byte op;
         
         do {
@@ -204,4 +223,6 @@ public class Tarefa {
             }
         }while(op != 0);
     }
+    
+  
 }

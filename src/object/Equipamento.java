@@ -1,9 +1,16 @@
 package object;
 
+import static java.lang.System.gc;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import lista.*;
 
 public class Equipamento implements Table {
-    private String dataAquisicao;
+    private SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+    GregorianCalendar gc = new GregorianCalendar();
+    private Date dataAquisicao, garantiaData;
     private byte garantia;
     private int discoDuro;
     private float CPU;
@@ -12,12 +19,14 @@ public class Equipamento implements Table {
     private Lista<AplicacaoInstalada> app;
     private Lista<PlacaRede> rede;
     private String format = "%-20s %-20s %-20s %-20s %-20s %-20s";
-    
-    public Equipamento(String dataAquisicao, byte garantia, int discoDuro,
+     
+    public Equipamento(Date dataAquisicao, byte garantia, int discoDuro,
                        float CPU, byte RAM, String sistemaOperacinal,
                        Lista<AplicacaoInstalada> app,
-                       Lista<PlacaRede> rede) {
+                       Lista<PlacaRede> rede) throws ParseException {
         this.dataAquisicao = dataAquisicao;
+        gc.add(gc.MONTH, garantia);
+        this.garantiaData = dataFormatada.parse(dataFormatada.format(gc.getTime()));
         this.garantia = garantia;
         this.discoDuro = discoDuro;
         this.CPU = CPU;
@@ -26,6 +35,14 @@ public class Equipamento implements Table {
         this.app = app;
         this.rede = rede;
     }
+
+    public Date getGarantiaData() {
+        return garantiaData;
+    }
+
+    public void setGarantiaData(Date garantiaData) {
+        this.garantiaData = garantiaData;
+    }
     
     public static <T extends Lista> void verlista(T ob) {
         ob.mostrar();
@@ -33,7 +50,7 @@ public class Equipamento implements Table {
     
     //METODOS GETTERS
 
-    public String getDataAquisicao() {
+    public Date getDataAquisicao() {
         return dataAquisicao;
     }
 
@@ -76,7 +93,7 @@ public class Equipamento implements Table {
         this.sistemaOperacinal = sistemaOperacinal;
     }
     
-    public void setDataAquisicao(String dataAquisicao) {
+    public void setDataAquisicao(Date dataAquisicao) {
         this.dataAquisicao = dataAquisicao;
     }
 
@@ -103,6 +120,6 @@ public class Equipamento implements Table {
     }
     
     public String toString() {
-        return String.format(format, this.dataAquisicao, this.garantia, this.discoDuro, this.CPU, this.RAM, this.sistemaOperacinal);
+        return String.format(format, dataFormatada.format(dataAquisicao), this.garantia, this.discoDuro, this.CPU, this.RAM, this.sistemaOperacinal);
     }   
 }

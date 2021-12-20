@@ -1,16 +1,20 @@
 package object;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author vm
  */
 public class AplicacaoInstalada implements Table {
+    private SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
     private String descricao;
     private String versao;
-    private String validade;
+    private Date validade;
     private String format = "%-40s %-20s %-20s";
     
-    public AplicacaoInstalada(String descricao, String versao, String validade) {
+    public AplicacaoInstalada(String descricao, String versao, Date validade) {
         this.descricao = descricao;
         this.versao = versao;
         this.validade = validade;
@@ -22,7 +26,7 @@ public class AplicacaoInstalada implements Table {
     public String getVersao() {
         return versao;
     }
-    public String getValidade() {
+    public Date getValidade() {
         return validade;
     }
     
@@ -33,7 +37,7 @@ public class AplicacaoInstalada implements Table {
     public void setVersao(String versao) {
         this.versao = versao;
     }
-    public void setValidade(String validade) {
+    public void setValidade(Date validade) {
         this.validade = validade;
     }
     
@@ -42,6 +46,6 @@ public class AplicacaoInstalada implements Table {
     }
 
     public String toString() {
-        return String.format(format, this.descricao, this.versao, this.validade);
+        return String.format(format, this.descricao, this.versao, dataFormatada.format(validade));
     }
 }
