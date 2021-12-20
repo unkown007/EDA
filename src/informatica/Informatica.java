@@ -2,6 +2,8 @@ package informatica;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import menu.Menu;
 import tarefa.Tarefa;
@@ -9,18 +11,67 @@ import lista.*;
 import object.*;
 
 public class Informatica {
-    public static Lista<Equipamento> app = new Lista<>();
-    private static Lista<AplicacaoInstalada> api = new Lista<>();
+    
     public static void main(String[] args) throws IOException, ParseException {
-        //Menu m = new Menu();
+       // Menu m = new Menu();
         
+        Lista<Equipamento> app1 = new Lista<>();
+        Lista<Equipamento> app2 = new Lista<>();
         
-        Tarefa.addEquipamento(app);
-        //Tarefa.addEquipamento(app);
+        //Tarefa.addEquipamento(app1);
+        //Tarefa.addEquipamento(app1);
+        //Tarefa.addEquipamento(app2);
        
-          api.mostrar();
-          //app.mostrar();
-        
+        //app2.mostrar();
+         app1.mostrar();
+         
+         
+         /*
+         Lista<Equipamento> testeUniversal = Tarefa.pesquisaSO(app1, "Windows");
+     
+         for(int i = 1; i <= testeUniversal.quantidade(); i++){
+            System.out.println("\nEquipamento"+i+"\nSistema operativo: "+testeUniversal.getNo(i).ob.getSistemaOperacinal());
+         }
+         
+         if(Tarefa.comunicarDoisEquipa(app1, app2))
+             System.out.println("Podem comunicar");
+         /*
+         Tarefa.conflitoRede(app1, "192.78.18.12");
+         
+         Lista<Equipamento> testeUniversal4 = Tarefa.garantiaExpirada(app1);
+         for(int i = 1; i <= testeUniversal4.quantidade(); i++){
+            System.out.println("\nEquipamento"+i+"\nSistema operativo: "+testeUniversal4.getNo(i).ob.getSistemaOperacinal());
+         }
+         
+         SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+         Date dataUsuario = dataFormatada.parse("20/01/2022");
+         Lista<Equipamento> testeUniversal2 = Tarefa.pesquisaDadaApp(app1, "Bom", "v4", dataUsuario);
+     
+         for(int i = 1; i <= testeUniversal2.quantidade(); i++){
+            System.out.println("\nEquipamento"+i+"\nSistema operativo: "+testeUniversal2.getNo(i).ob.getSistemaOperacinal());
+         }
+         
+         Lista<Equipamento> testeUniversal3 = Tarefa.equipMesmaRede(app1, "10.1.1.44");
+         for(int i = 1; i <= testeUniversal3.quantidade(); i++){
+            System.out.println("\nEquipamento"+i+"\nSistema operativo: "+testeUniversal3.getNo(i).ob.getSistemaOperacinal());
+         }
+         
+         System.out.println("\nTOTAL\nHD: "+Tarefa.getTotalHd(app1)+"\nMIPS: "+Tarefa.getTotalMips(app1)+"\nRAM: "+Tarefa.getTotalRam(app1));
+         
+         Lista<Equipamento> testeUniversal6 = Tarefa.menorRam(app1, 4);
+          for(int i = 1; i <= testeUniversal6.quantidade(); i++){
+            System.out.println("\nEquipamento"+i+"\nSistema operativo: "+testeUniversal6.getNo(i).ob.getSistemaOperacinal());
+         }
+          
+         Lista<Equipamento> testeUniversal5 = Tarefa.lincencaExpirada(app1);
+         for(int i = 1; i <= testeUniversal5.quantidade(); i++){
+            System.out.println("\nEquipamento"+i+"\nSistema operativo: "+testeUniversal5.getNo(i).ob.getSistemaOperacinal());
+         }
+        /* 
+        Lista<Equipamento> equipMenorRam = l.menorRam(8);
+        for(int i = 1; i <= equipMenorRam.quantidade(); i++){
+            System.out.println("\nEquipamento"+i+"\nSistema operativo: "+equipMenorRam.getNo(i).ob.getSistemaOperacinal());
+        }
         //Tarefa.alterarEquipamento(app);
         
         //app.getNo(1).ob.getApp().mostrar();

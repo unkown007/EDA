@@ -7,11 +7,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import lista.No;
+import menu.Menu;
 import object.AplicacaoInstalada;
 import object.PlacaRede;
 
 public class Listar {
-    private Lista<Equipamento> equipamento = Informatica.app;
+    private Lista<Equipamento> equipamento = Menu.app;
     private SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
     private int Ram;
     private double Hd;
@@ -71,7 +73,7 @@ public class Listar {
     
     public Lista<Equipamento> lincencaExpirada() throws ParseException{
         Lista<Equipamento> equipLicenca = new Lista<>();
-        Lista<AplicacaoInstalada> api = new Lista<>();
+        No<Equipamento> api = new No<>();
         GregorianCalendar gc = new GregorianCalendar();
         Date dataUsuario = dataFormatada.parse(dataFormatada.format(gc.getTime())); //pega a data atual
         
@@ -80,9 +82,9 @@ public class Listar {
         
         for(int i = 1; i <= equipamento.quantidade(); i++){
             if(equipamento.getNo(i) != null){
-                if(api.vazia())
+                if(api.ob.getApp().vazia())
                     return null;
-                if(dataUsuario.after(api.getNo(i).ob.getValidade())) //Verifica se a data atual e superior que da validade
+                if(dataUsuario.after(api.ob.getApp().getNo(i).ob.getValidade())) //Verifica se a data atual e superior que da validade
                     equipLicenca.inserir(equipamento.getNo(i).ob);
             }
         }
@@ -110,14 +112,14 @@ public class Listar {
     
     public Lista<Equipamento> equipMesmaRede(String broadcast) throws ParseException{
         Lista<Equipamento> equipMesmaRede = new Lista<>();
-        Lista<PlacaRede> rede = new Lista<>();
+        No<Equipamento> rede = new No<>();
       
         if(equipamento.vazia())
             return null;
         
         for(int i = 1; i <= equipamento.quantidade(); i++){
             if(equipamento.getNo(i) != null){
-                if(rede.getNo(i).ob.getEnderecoBroadcast().equals(broadcast))
+                if(rede.ob.getRede().getNo(i).ob.getEnderecoBroadcast().equals(broadcast))
                     equipMesmaRede.inserir(equipamento.getNo(i).ob);
             }
         }
