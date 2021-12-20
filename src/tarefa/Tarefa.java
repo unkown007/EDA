@@ -343,16 +343,45 @@ public class Tarefa {
         return equipMesmaRede;
     } 
     
-    public static void conflitoRede(Lista<Equipamento> equipamento, String enderecoIp){
-        Lista<PlacaRede> rede = new Lista<>();
+    public static void conflitoRede(Lista<Equipamento> equipamento){
+        No<Equipamento> aux1, aux2;
+        No<PlacaRede> p1, p2;
+        int i=1,j,k,w;
+        boolean st;
+        
         if(equipamento.vazia())
             return;
         
-        for(int i = 1; i <= equipamento.quantidade(); i++){
-            if(equipamento.getNo(i) != null){
-                if(rede.getNo(i).ob.getEnderecoIP().equals(enderecoIp))
-                    System.out.println("Conflito");
+        st = false;
+        while(equipamento.getNo(i) != null) {
+            aux1 = equipamento.getNo(i);
+            j=i+1;
+            k=1;
+            while(aux1.ob.getRede().getNo(k) != null) {
+                p1 = aux1.ob.getRede().getNo(k);
+                while(equipamento.getNo(j) != null) {
+                    aux2 = equipamento.getNo(j);
+                    w = 1;
+                    while(aux2.ob.getRede().getNo(w) != null) {
+                        p2 = aux2.ob.getRede().getNo(w);
+                        if(p1.ob.getEnderecoIP().equals(p2.ob.getEnderecoIP())&&
+                            p1.ob.getEnderecoBroadcast().equals(p2.ob.getEnderecoBroadcast())&&
+                            p1.ob.getMascaraRede().equals(p2.ob.getMascaraRede())) {
+                            st = true;
+                        }
+                        w++;
+                    }
+                    j++;
+                }
+                k++;
             }
+            i++;
+        }
+        
+        if(st) {
+            System.out.println("\nConflitos na Rede\n");
+        }else {
+            System.out.println("\nNao ha conflitos na Rede\n");
         }
     }
     

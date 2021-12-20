@@ -16,15 +16,21 @@ public class Informatica {
        // Menu m = new Menu();
         
         Lista<Equipamento> app1 = new Lista<>();
-        Lista<Equipamento> app2 = new Lista<>();
+        //Lista<Equipamento> app2 = new Lista<>();
         
-        //Tarefa.addEquipamento(app1);
+        Tarefa.addEquipamento(app1);
+        Tarefa.addEquipamento(app1);
         //Tarefa.addEquipamento(app1);
         //Tarefa.addEquipamento(app2);
        
         //app2.mostrar();
          app1.mostrar();
          
+         //No<Equipamento> n = app1.getNo(2);
+         
+         //n.ob.getApp().mostrar();
+         
+         Tarefa.conflitoRede(app1);
          
          /*
          Lista<Equipamento> testeUniversal = Tarefa.pesquisaSO(app1, "Windows");
