@@ -455,6 +455,7 @@ public class Tarefa {
     public static void comunicarDoisEquipa(Lista<Equipamento> equipamento) throws ParseException{
         No<Equipamento> redes1;
         Lista<PlacaRede> rede1;
+        boolean status = false;
         if(equipamento.vazia())
             return;
         
