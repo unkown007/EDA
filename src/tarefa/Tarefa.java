@@ -285,7 +285,7 @@ public class Tarefa {
     
     public static Lista<Equipamento> lincencaExpirada(Lista<Equipamento> equipamento) throws ParseException{
         Lista<Equipamento> equipLicenca = new Lista<>();
-        No<Equipamento> api = new No<>();
+        No<Equipamento> api;
         GregorianCalendar gc = new GregorianCalendar();
         Date dataUsuario = dataFormatada.parse(dataFormatada.format(gc.getTime())); //pega a data atual
         
@@ -294,6 +294,7 @@ public class Tarefa {
         
         for(int i = 1; i <= equipamento.quantidade(); i++){
             if(equipamento.getNo(i) != null){
+                api = equipamento.getNo(i);
                 if(api.ob.getApp().vazia())
                     return null;
                 if(dataUsuario.after(api.ob.getApp().getNo(i).ob.getValidade())) //Verifica se a data atual e superior que da validade
@@ -305,7 +306,7 @@ public class Tarefa {
     } 
     
     public static Lista<Equipamento> garantiaExpirada(Lista<Equipamento> equipamento) throws ParseException{
-        Lista<Equipamento> equipGarantia = new Lista<>();
+        Lista<Equipamento> equipGarantia = null;
         GregorianCalendar gc = new GregorianCalendar();
         Date dataUsuario = dataFormatada.parse(dataFormatada.format(gc.getTime())); //pega a data atual
         
@@ -319,27 +320,55 @@ public class Tarefa {
             }
         }
         
+        if(equipGarantia == null){
+            System.out.println("Garantia nao expirada");
+            return new Lista<>();
+        }
         return equipGarantia;
     } 
     
-    public static Lista<Equipamento> equipMesmaRede(Lista<Equipamento> equipamento, String broadcast) throws ParseException{
+    public static Lista<Equipamento> equipMesmaRede(Lista<Equipamento> equipamento) throws ParseException{
         Lista<Equipamento> equipMesmaRede = new Lista<>();
-        No<Equipamento> rede = new No<>();
+        No<Equipamento> redes1;
+        Lista<PlacaRede> rede1;
       
         if(equipamento.vazia())
             return null;
         
+        
         for(int i = 1; i <= equipamento.quantidade(); i++){
             if(equipamento.getNo(i) != null){
-                 for(int j = 1; j <= rede.ob.getRede().quantidade(); j++){
-                    if(rede.ob.getRede().getNo(j) != null){
-                        if(rede.ob.getRede().getNo(j).ob.getEnderecoBroadcast().equals(broadcast))
-                            equipMesmaRede.inserir(equipamento.getNo(i).ob);
+                redes1 = equipamento.getNo(i);
+                for(int j = 1; j <= redes1.ob.getRede().quantidade(); j++){
+                    if(equipamento.getNo(j) != null){
+                        //redes2 = equipamento.getNo(j);
+                        for(int k = j + 1; k <= redes1.ob.getRede().quantidade(); k++){
+                            rede1 = equipamento.getNo(j).ob.getRede();
+                            //rede2 = equipamento.getNo(k).ob.getRede();
+                            if(rede1.getNo(j).ob.getEnderecoBroadcast().equals(rede1.getNo(k).ob.getEnderecoBroadcast()))
+                                equipMesmaRede.inserir(equipamento.getNo(i).ob);
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        for(int i = 1; i <= equipamento.quantidade(); i++){
+            if(equipamento.getNo(i) != null){
+                 for(int j = 1; j <= redes1.ob.getRede().quantidade(); j++){
+                    if(redes1.ob.getRede().getNo(j) != null){
+                        for(int k = 1; k <= redes2.ob.getRede().quantidade(); k++){
+                            if(redes2.ob.getRede().getNo(k) != null){
+                                if(rede1.getNo(i).ob.getEnderecoBroadcast().equals(rede1.getNo(j).ob.getEnderecoBroadcast())
+                                        && rede1.getNo(j).ob.getEnderecoBroadcast().equals(rede2.getNo(k).ob.getEnderecoBroadcast()))
+                                    equipMesmaRede.inserir(equipamento.getNo(i).ob);
+                            }
+                        }
                     }
                  }
             }
         }
-        
+        */
         return equipMesmaRede;
     } 
     
@@ -400,15 +429,16 @@ public class Tarefa {
         return equipSo;
     } 
     
-    public static Lista<Equipamento> pesquisaDadaApp(Lista<Equipamento> equipamento, String descricao, String versao, Date licenca){
+    public static Lista<Equipamento> pesquisaDaApp(Lista<Equipamento> equipamento, String descricao, String versao, Date licenca){
         Lista<Equipamento> equipApp = new Lista<>();
-        No<Equipamento> app = new No<>();
+        No<Equipamento> app;
         
         if(equipamento.vazia())
             return null;
         
         for(int i = 1; i <= equipamento.quantidade(); i++){
             if(equipamento.getNo(i) != null){
+                app = equipamento.getNo(i);
                 for(int j = 1; j <= app.ob.getApp().quantidade(); j++){
                     if(app.ob.getApp().getNo(j) != null){
                         if(app.ob.getApp().getNo(j).ob.getDescricao().equalsIgnoreCase(descricao)) 
@@ -422,26 +452,42 @@ public class Tarefa {
         return equipApp;
     } 
     
-    public static boolean comunicarDoisEquipa(Lista<Equipamento> equipamento1, Lista<Equipamento> equipamento2) throws ParseException{
-        Lista<Equipamento> equipMesmaRede = new Lista<>();
-        No<Equipamento> rede = new No<>();
+    public static void comunicarDoisEquipa(Lista<Equipamento> equipamento) throws ParseException{
+        No<Equipamento> redes1;
+        Lista<PlacaRede> rede1;
+        if(equipamento.vazia())
+            return;
         
-        if(equipamento1.vazia() || equipamento2.vazia())
-            return false;
-        
-        for(int i = 1; i <= equipamento1.quantidade(); i++){
-            if(equipamento1.getNo(i) != null){
-                for(int j = 1; j <= equipamento2.quantidade(); j++){
-                    if(equipamento2.getNo(i) != null){
-                        if(rede.ob.getRede().getNo(i).ob.getEnderecoBroadcast().equals(rede.ob.getRede().getNo(j).ob.getEnderecoBroadcast())){
-                            System.out.println("Podem se comunicar");
-                            break;
+        for(int i = 1; i <= equipamento.quantidade(); i++){
+            if(equipamento.getNo(i) != null){
+                redes1 = equipamento.getNo(i);
+                for(int j = 1; j <= redes1.ob.getRede().quantidade(); j++){
+                    if(equipamento.getNo(j) != null){
+                        for(int k = j + 1; k <= redes1.ob.getRede().quantidade(); k++){
+                            rede1 = equipamento.getNo(j).ob.getRede();
+                            if(rede1.getNo(j).ob.getEnderecoBroadcast().equals(rede1.getNo(k).ob.getEnderecoBroadcast()))
+                                System.out.println("Podem se comunicar");
                         }
                     }
                 }
             }
         }
         
-        return true;
-    } 
-}
+        /*
+        for(int i = 1; i <= equipamento.quantidade(); i++){
+            if(equipamento.getNo(i) != null){
+                rede1 = equipamento.getNo(i);
+                for(int j = i + 1; j <= rede1.ob.getRede().quantidade(); j++){
+                    if(equipamento.getNo(j) != null){
+                        rede2 = equipamento.getNo(j);
+                            if(rede1.ob.getRede().getNo(i).ob.getEnderecoBroadcast().equals(rede2.ob.getRede().getNo(j).ob.getEnderecoBroadcast())){
+                                System.out.println("\nPodem se comunicar");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }*/
+     }
+} 
+
