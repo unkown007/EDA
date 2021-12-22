@@ -136,7 +136,7 @@ public class Menu {
             opc = (byte) Validacao.num("\nR: ",0,3);
             switch(opc){
                 case 1:
-                    testeLista.mostrar(); break;
+                    app.mostrar(); break;
                 case 2:
                    subMenuEquiVisualApp(); break;
                 case 3:
@@ -146,15 +146,19 @@ public class Menu {
         }while(opc != 0);
     }
      public static void subMenuEquiVisualRede(){
-         for(int i = 1; i <= testeLista.quantidade(); i++){
-            for(int k = 1; k <= testeLista.getNo(i).ob.getRede().quantidade(); k++)
-                testeLista.getNo(k).ob.getRede().mostrar();
+         System.out.print("\n\tPlaca de Rede:");
+         for(int i = 1; i <= app.quantidade(); i++){
+            for(int k = 1; k <= app.getNo(i).ob.getRede().quantidade(); k++)
+                if(app.getNo(k) != null)
+                    app.getNo(k).ob.getRede().mostrar();
          }
      }
      public static void subMenuEquiVisualApp(){
-         for(int i = 1; i <= testeLista.quantidade(); i++){
-            for(int k = 1; k <= testeLista.getNo(i).ob.getApp().quantidade(); k++)
-                testeLista.getNo(k).ob.getApp().mostrar();
+         System.out.print("\n\tAplicacoes Instaladas:");
+         for(int i = 1; i <= app.quantidade(); i++){
+            for(int k = 1; k <= app.getNo(i).ob.getApp().quantidade(); k++)
+                if(app.getNo(k) != null)
+                      app.getNo(k).ob.getApp().mostrar();
          }
      }
     public static void subMenuEquiInserir() throws IOException, ParseException {
