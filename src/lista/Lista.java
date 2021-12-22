@@ -99,6 +99,7 @@ public class Lista<D extends Table> implements Operacoes<D> {
     
     public void mostrar() {
         No<D> aux;
+        int i=1;
         
         aux = inicio;
         
@@ -106,7 +107,7 @@ public class Lista<D extends Table> implements Operacoes<D> {
         
         aux.ob.tableHeader();
         while(aux != null) {
-            System.out.println(aux.ob.toString());
+            System.out.println(aux.ob.toString(i++));
             aux = aux.proximo;
         }
     }

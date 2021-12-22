@@ -4,7 +4,7 @@ public class PlacaRede implements Table {
     private String enderecoIP;
     private String mascaraRede;
     private String enderecoBroadcast;
-    private String format = "%-20s %-20s %-20s";
+    private String format = "%-20s %-20s %-20s %-20s";
     
     public PlacaRede(String enderecoIP, String mascaraRede, String enderecoBroadcast) {
         this.enderecoIP = enderecoIP;
@@ -35,11 +35,11 @@ public class PlacaRede implements Table {
     }
     
     public void tableHeader(){
-        System.out.println(String.format(format,"IP","Mascara","BroadCast"));
+        System.out.println(String.format(format,"ID","IP","Mascara","BroadCast"));
     }
     
-    public String toString() {
-        return String.format(format, this.enderecoIP, this.mascaraRede, this.enderecoBroadcast);
+    public String toString(int id) {
+        return String.format(format, id, this.enderecoIP, this.mascaraRede, this.enderecoBroadcast);
     }
     
     

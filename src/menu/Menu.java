@@ -148,19 +148,20 @@ public class Menu {
      public static void subMenuEquiVisualRede(){
          System.out.print("\n\tPlaca de Rede:");
          for(int i = 1; i <= app.quantidade(); i++){
-            for(int k = 1; k <= app.getNo(i).ob.getRede().quantidade(); k++)
-                if(app.getNo(k) != null)
-                    app.getNo(k).ob.getRede().mostrar();
+            /*for(int k = 1; k <= app.getNo(i).ob.getRede().quantidade(); k++)
+                if(app.getNo(k) != null)*/
+                    app.getNo(i).ob.getRede().mostrar();
          }
      }
      public static void subMenuEquiVisualApp(){
          System.out.print("\n\tAplicacoes Instaladas:");
          for(int i = 1; i <= app.quantidade(); i++){
-            for(int k = 1; k <= app.getNo(i).ob.getApp().quantidade(); k++)
-                if(app.getNo(k) != null)
-                      app.getNo(k).ob.getApp().mostrar();
+            /*for(int k = 1; k <= app.getNo(i).ob.getApp().quantidade(); k++)
+                if(app.getNo(k) != null)*/
+                      app.getNo(i).ob.getApp().mostrar();
          }
      }
+     
     public static void subMenuEquiInserir() throws IOException, ParseException {
         byte opc;
         do{

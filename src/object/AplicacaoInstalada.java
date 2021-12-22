@@ -12,7 +12,7 @@ public class AplicacaoInstalada implements Table {
     private String descricao;
     private String versao;
     private Date validade;
-    private String format = "%-40s %-20s %-20s";
+    private String format = "%-20s %-40s %-20s %-20s";
     
     public AplicacaoInstalada(String descricao, String versao, Date validade) {
         this.descricao = descricao;
@@ -42,10 +42,10 @@ public class AplicacaoInstalada implements Table {
     }
     
     public void tableHeader(){
-        System.out.println(String.format(format,"Descricao","Versao","Validade"));
+        System.out.println(String.format(format,"ID","Descricao","Versao","Validade"));
     }
 
-    public String toString() {
-        return String.format(format, this.descricao, this.versao, dataFormatada.format(validade));
+    public String toString(int id) {
+        return String.format(format, id, this.descricao, this.versao, dataFormatada.format(validade));
     }
 }

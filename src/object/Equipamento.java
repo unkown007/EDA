@@ -18,7 +18,7 @@ public class Equipamento implements Table {
     private String sistemaOperacinal;
     private Lista<AplicacaoInstalada> app;
     private Lista<PlacaRede> rede;
-    private String format = "%-20s %-20s %-20s %-20s %-20s %-20s";
+    private String format = "%-20s %-20s %-20s %-20s %-20s %-20s %-20s";
      
     public Equipamento(Date dataAquisicao, byte garantia, int discoDuro,
                        float CPU, byte RAM, String sistemaOperacinal,
@@ -114,12 +114,12 @@ public class Equipamento implements Table {
     }
 
     public void tableHeader(){
-        System.out.println(String.format(format,"Data de Aquisicao","Garantia",
+        System.out.println(String.format(format,"ID","Data de Aquisicao","Garantia",
                                                  "Capacidade(GB)","CPU(Ghz)",
                                                  "Memoria(GB)","Sistema Operativo"));
     }
     
-    public String toString() {
-        return String.format(format, dataFormatada.format(dataAquisicao), this.garantia, this.discoDuro, this.CPU, this.RAM, this.sistemaOperacinal);
-    }   
+    public String toString(int id) {
+        return String.format(format, id, dataFormatada.format(dataAquisicao), this.garantia, this.discoDuro, this.CPU, this.RAM, this.sistemaOperacinal);
+    }
 }
