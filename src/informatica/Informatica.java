@@ -13,18 +13,18 @@ import object.*;
 public class Informatica {
     
     public static void main(String[] args) throws IOException, ParseException {
-       // Menu m = new Menu();
+        Menu m = new Menu();
         
-        Lista<Equipamento> app1 = new Lista<>();
+        //Lista<Equipamento> app = new Lista<>();
         //Lista<Equipamento> app2 = new Lista<>();
         
-        Tarefa.addEquipamento(app1);
+        //Tarefa.addEquipamento(app1);
         //Tarefa.addEquipamento(app1);
         //Tarefa.addEquipamento(app1);
         //Tarefa.addEquipamento(app2);
        
          //app2.mostrar();
-         app1.mostrar();
+         //app1.mostrar();
          
          //No<Equipamento> n = app1.getNo(2);
          
@@ -41,7 +41,7 @@ public class Informatica {
          }
          /* */
          
-         Tarefa.comunicarDoisEquipa(app1);
+         //Tarefa.comunicarDoisEquipa(app1);
             
          /*
          //Tarefa.conflitoRede(app1, "192.78.18.12");

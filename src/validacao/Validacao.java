@@ -8,40 +8,40 @@ package validacao;
 import java.io.*;
 
 public class Validacao {
-    private static BufferedReader x = new BufferedReader (new InputStreamReader(System.in));
-
-    public Validacao(){
+    private static String msg = "Dado invalido, informe dado valido: ";
+    private static BufferedReader x = new BufferedReader(new InputStreamReader(System.in));
+    
+    public Validacao(){}
+    
+    public static double num(String t, int i, int f) {
+        double n=0;
+        do {
+            System.out.print(t);
+            try {
+                n = Double.parseDouble(x.readLine());
+            } catch(NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }catch(IOException io) {
+                System.out.println(io.getMessage());
+            }
+            if(n < i || n > f)
+                System.out.println(msg);
+        }while(n < i || n > f);
+        return n;
     }
-
-    public static int inteiro(String msg, int min, int max)throws IOException {
-	int valor;
-		
-	do{
-            System.out.print(msg+"\t");
-            valor = Integer.parseInt(x.readLine());
-            if (valor<min || valor >max){
-		System.out.print("Numero Invalido Vota a tenter");
+    
+    public static String texto(String t, int mTam) {
+        String txt = "";
+        do {
+            System.out.print(t);
+            try {
+                txt = x.readLine();
+            }catch(IOException io){
+                System.out.println(io.getMessage());
             }
-	} while(valor<min || valor >max);
-	return valor;
-	}
-
-    public static float real(String msg, float min, float max)throws IOException {
-	float valor;
-		
-	do{
-            System.out.print(msg+"\t");
-            valor = Float.parseFloat(x.readLine());
-            if (valor<min || valor >max){
-		System.out.println("Numero Invalido Vota a tenter");
-            }
-	} while(valor<min || valor >max);
-	return valor;
-	}
-
-    public static String texto(String msg)throws IOException {
-        System.out.print(msg+"\t");
-            String text = x.readLine();
-	return text;
+            if(txt.isEmpty() || txt.length() < mTam)
+                System.out.println(msg);
+        }while(txt.isEmpty() || txt.length() < mTam);
+        return txt;
     }
 }

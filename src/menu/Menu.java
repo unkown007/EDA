@@ -1,120 +1,294 @@
 package menu;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import lista.Lista;
 import validacao.Validacao;
 import lista.Operacoes;
 import object.Equipamento;
+import tarefa.Tarefa;
 
 public class Menu {
-    public static Lista<Equipamento> app = new Lista<>();
     private String material;
-    byte ops;
-    public Validacao val;
-    
-    
-    
-    public Menu() throws IOException{
-        val = new Validacao();
+    byte opc;
+    private static Lista<Equipamento> app = new Lista<>();
+    private static Lista<Equipamento> testeLista = new Lista<>();
+    public Menu() throws IOException, ParseException{
         menu();
-        
     }
     
-    public void menu() throws IOException{
+   public static void menu() throws ParseException, IOException {
+        byte opc;
         do{
-            System.out.println("GESTAO DE REDE INFORMATICA\n"
-            + "Base de Dados de equipamentos (PC's ou Servidores)\n"
-            + "\nO que deseja:\n"
-            + "\t1.\tPara equipamento\n"
-            + "\t2.\tPara Aplicacoes instaladas \n"
-            + "\t3.\tPara placa de rede\n"
-            + "\t0.\tPara sair do sistema")
-        ;
-        
-        ops =(byte) val.inteiro("Escolha uma opcao:",0,3);
-        
-        if(ops==1){
-            material ="equipamento";
-        }else{
-            if(ops==2){
-                material = "aplicacao instalada";
-            }else{
-                material = "placa de rede";
+            System.out.print("\n\n\tGestão de uma Rede Informática\n");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Pesquisar");
+            System.out.print("\n3 - Listar");
+            System.out.print("\n0 - Sair");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    menuEquipamento(); break;
+                case 2:
+                    menuPesquisar(); break;
+                case 3:
+                    menuListar(); break;
             }
-        }
-        
-        switch(ops){
-            case 0:sair();break;
-            case 1:operacoes(material);break;
-            case 2:operacoes(material);break;
-            case 3:operacoes(material);break;
-        }
-        }while(ops !=0);
+        }while(opc != 0);
     }
     
-    public void operacoes(String elemento)throws IOException{
-        barra();
-        System.out.println("\t1.\tPara visualizar "+elemento+"\n"
-            + "\t2.\tPara inserir "+elemento+"\n"
-            + "\t3.\tPara alterar um determinado "+elemento+"\n"
-            + "\t4.\tPara eliminar um determinado "+elemento+"\n"
-            + "\t0.\tPara voltar ")
-        ;
-        
-        ops =(byte) val.inteiro("Escolha uma opcao:",0,4);
-        
-        barra();
-        switch(ops){
-            case 0:menu();break;
-            case 1:visualizarEquipamento();break;
-            case 2:break;
-            case 3:break;
-            case 4:break;
-        }
+    public static void menuEquipamento() throws IOException, ParseException {
+        byte opc;
+        do{
+            System.out.print("\n\tEquipamento:");
+            System.out.print("\n1 - Visualizar");
+            System.out.print("\n2 - Inserir");
+            System.out.print("\n3 - Alterar");
+            System.out.print("\n4 - Eliminiar");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,4);
+            switch(opc){
+               case 1:
+                    subMenuEquiVisual(); break;
+               case 2:
+                    subMenuEquiInserir(); break;
+               case 3:
+                    subMenuEquiUpdate(); break;
+               case 4:
+                    subMenuEquiEliminar(); break;
+               
+            }
+        }while(opc != 0);
     }
     
-    public void sair(){
-        System.out.println("Saindo do sistema");
+    public static void subMenuEquiEliminar() {
+        byte opc;
+        do{
+            System.out.print("\n\tEliminar:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Aplicacoes Instaladas");
+            System.out.print("\n3 - Placa de Rede");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    ; break;
+                case 2:
+                   ; break;
+            }
+        }while(opc != 0);
     }
     
-    public void visualizarEquipamento()throws IOException{
-        barra();
-        System.out.println("Visualizar:\n"
-                + "1.\tTodos equipamentos \n"
-                + "2.\tUm determinado equipamento\n"
-                + "3.\tQue estao na mesma rede\n"
-                + "0.\tVoltar\n");
-        ops =(byte) val.inteiro("Escolha uma opcao:",0,2);
-        
-        switch(ops){
-            case 0:menu();break;
-            case 1:break;
-            case 2:break;
-            case 3:break;
-        }
-        barra();
+    public static void subMenuEquiUpdate() {
+        byte opc;
+        do{
+            System.out.print("\n\tAlterar:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,1);
+            switch(opc){
+                case 1:
+                    subMenuEquiUpdateEq(); break;
+            }
+        }while(opc != 0);
     }
     
-    public void visualEquipTotal() throws IOException{
-        barra();
-        System.out.println("Totais:\n"
-                + "1.\tMIPS \n"
-                + "2.\tMemoria \n"
-                + "3.\tCapacidade dos HDs\n"
-                + "0.\tVoltar\n");
-        ops =(byte) val.inteiro("Escolha uma opcao:",0,2);
-        
-        switch(ops){
-            case 0:menu();break;
-            case 1:break;
-            case 2:break;
-            case 3:break;
-        }
-        barra();
+    public static void subMenuEquiUpdateEq() {
+        byte opc;
+        do{
+            System.out.print("\n\tAlterar Equipamento:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Aplicacoes Instaladas");
+            System.out.print("\n3 - Placa de Rede");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    ; break;
+                case 2:
+                   ; break;
+            }
+        }while(opc != 0);
+    }
+     public static void subMenuEquiVisual() {
+        byte opc;
+        do{
+            System.out.print("\n\tVisualizar:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Aplicacoes Instaladas");
+            System.out.print("\n3 - Placa de Rede");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    testeLista.mostrar(); break;
+                case 2:
+                   subMenuEquiVisualApp(); break;
+                case 3:
+                    subMenuEquiVisualRede(); break;
+              
+            }
+        }while(opc != 0);
+    }
+     public static void subMenuEquiVisualRede(){
+         for(int i = 1; i <= testeLista.quantidade(); i++){
+            for(int k = 1; k <= testeLista.getNo(i).ob.getRede().quantidade(); k++)
+                testeLista.getNo(k).ob.getRede().mostrar();
+         }
+     }
+     public static void subMenuEquiVisualApp(){
+         for(int i = 1; i <= testeLista.quantidade(); i++){
+            for(int k = 1; k <= testeLista.getNo(i).ob.getApp().quantidade(); k++)
+                testeLista.getNo(k).ob.getApp().mostrar();
+         }
+     }
+    public static void subMenuEquiInserir() throws IOException, ParseException {
+        byte opc;
+        do{
+            System.out.print("\n\tInserir:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,1);
+            switch(opc){
+                case 1:
+                    Tarefa.addEquipamento(app); break;
+            }
+        }while(opc != 0);
+    }
+    
+    /* public static void subMenuEquiInserirEq() {
+        byte opc;
+        do{
+            System.out.print("\n\tInserir:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Aplicacoes Instaladas");
+            System.out.print("\n3 - Placa de Rede");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    ; break;
+                case 2:
+                   ; break;
+            }
+        }while(opc != 0);
+    } */
+     
+    private static void menuPesquisar() throws ParseException {
+        byte opc;
+        do{
+            System.out.print("\n\tPesquisar:\n\tTodos os equipamentos");
+            System.out.print("\n1 - Com um dado SO");
+            System.out.print("\n2 - Que pertencem uma dada rede");
+            System.out.print("\n3 - Com uma dada aplicacao");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    subPesquisarSO(); break;
+                case 2:
+                    subListarNelaSituada(); break;
+                case 3:
+                    subPesquisarApp();
+            }
+        }while(opc != 0);
+    }
+    
+    private static void subPesquisarApp() throws ParseException{
+        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+        String dc = Validacao.texto("Descricao: ", 2);
+        String vs = Validacao.texto("Versao: ", 2);
+        String lc = Validacao.texto("Licenca (dd/mm/yyyy): ", 4);
+        Date dataUsuario = dataFormatada.parse(lc);
+        testeLista = Tarefa.pesquisaDaApp(app, dc, vs, dataUsuario);
+        if(testeLista != null)
+            testeLista.mostrar();
+         else
+            System.out.println("\nNão foi encontrado equipamento com \nDescricao: "+dc+"\nVersao: "+vs+"\nLicenca: "+lc);
         
     }
     
-    public void barra(){
-        System.out.println("=======================================");
+     private static void subPesquisarSO() throws ParseException {
+         String so = Validacao.texto("Informe o Sistema Operativo: ", 2);
+         testeLista = Tarefa.pesquisaSO(app, so);
+         if(testeLista != null)
+            testeLista.mostrar();
+         else
+            System.out.println("Nenhum equipamento com SO "+so);
+         
+     }
+     private static void menuListar() throws ParseException {
+        byte opc;
+        do{
+            System.out.print("\n\tListar:");
+            System.out.print("\n1 - Totais");
+            System.out.print("\n2 - Equipamento com menos certo valor em RAM");
+            System.out.print("\n3 - Redes e equipamentos nela situadas");
+            System.out.print("\n4 - Equipamento cuja garantia expirou");
+            System.out.print("\n5 - Equipamento cuja a licenca expirou");
+            System.out.print("\n6 - Dois equipamento com mesmo IP");
+            System.out.print("\n7 - Determinar se dois equipamentos podem comunicar");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,7);
+            switch(opc){
+                case 1:
+                    subListarTotais(); break;
+                case 2:
+                    subListarRam(); break;
+                case 3:
+                    subListarNelaSituada(); break;
+                case 4:
+                    subListarGarantiaEx(); break;
+                case 5:
+                    subListarLicencaEx(); break;
+                case 6:
+                    Tarefa.conflitoRede(app); break;
+                case 7:
+                    Tarefa.comunicarDoisEquipa(app); break;   
+            }
+        }while(opc != 0);
     }
+   
+    private static void subListarNelaSituada() throws ParseException{
+        testeLista = Tarefa.equipMesmaRede(app);
+        if(testeLista != null)
+            testeLista.mostrar();
+        else
+            System.out.println("Nenhum equipamento esta na mesma rede");
+    }
+    
+    private static void subListarLicencaEx() throws ParseException{
+        testeLista = Tarefa.lincencaExpirada(app);
+        if(testeLista != null)
+            testeLista.mostrar();
+        else
+            System.out.println("Nenhum equipamento com licenca expirada");
+    }
+     
+    private static void subListarGarantiaEx() throws ParseException{
+        testeLista = Tarefa.garantiaExpirada(app);
+        if(testeLista != null)
+            testeLista.mostrar();
+        else
+            System.out.println("Nenhum equipamento com garantia expirada");
+    }
+     
+    private static void subListarRam(){
+        byte ram = (byte)Validacao.num("Informe valor em memoria RAM: ", 1, 999);
+        testeLista = Tarefa.menorRam(app, ram);
+        if(testeLista != null)
+            testeLista.mostrar();
+        else
+            System.out.println("Nenhum equipamento com "+ram+"GB RAM menor");
+    }
+     
+    private static void subListarTotais(){
+        System.out.print("\n\tTotais:");
+        System.out.println("\nMIPS: "+Tarefa.getTotalMips(app)+
+                "\nMemoria: "+Tarefa.getTotalRam(app)+""
+                + "\nCapacidade dos HDs: "+Tarefa.getTotalHd(app));
+    }
+    
 }
 
