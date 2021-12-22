@@ -13,19 +13,19 @@ import object.*;
 public class Informatica {
     
     public static void main(String[] args) throws IOException, ParseException {
-        Menu m = new Menu();
-        
-        //Lista<Equipamento> app = new Lista<>();
+          Menu.menu();
+         //Lista<Equipamento> app = new Lista<>();
         //Lista<Equipamento> app2 = new Lista<>();
         
-        //Tarefa.addEquipamento(app1);
+         //Tarefa.addEquipamento(app);
         //Tarefa.addEquipamento(app1);
         //Tarefa.addEquipamento(app1);
         //Tarefa.addEquipamento(app2);
        
          //app2.mostrar();
-         //app1.mostrar();
+          //app.mostrar();
          
+          //app.getNo(1).ob.getApp().mostrar();
          //No<Equipamento> n = app1.getNo(2);
          
          //n.ob.getApp().mostrar();

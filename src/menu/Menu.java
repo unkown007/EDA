@@ -10,15 +10,11 @@ import object.Equipamento;
 import tarefa.Tarefa;
 
 public class Menu {
-    private String material;
     byte opc;
     private static Lista<Equipamento> app = new Lista<>();
     private static Lista<Equipamento> testeLista = new Lista<>();
-    public Menu() throws IOException, ParseException{
-        menu();
-    }
     
-   public static void menu() throws ParseException, IOException {
+    public static void menu() throws ParseException, IOException {
         byte opc;
         do{
             System.out.print("\n\n\tGestão de uma Rede Informática\n");
@@ -73,13 +69,31 @@ public class Menu {
             opc = (byte) Validacao.num("\nR: ",0,3);
             switch(opc){
                 case 1:
-                    ; break;
+                    subMenuEliminarEquipamento(); break;
                 case 2:
-                   ; break;
+                   subMenuEliminarApp(); break;
+                case 3:
+                   subMenuEliminarRede(); break;
             }
         }while(opc != 0);
     }
-    
+    public static void subMenuEliminarEquipamento(){
+        System.out.println(
+                    String.format(
+                            "%-10s%-20s %-20s %-20s %-20s %-20s %-20s"
+                            ,"ID","Data de Aquisicao","Garantia",
+                             "Capacidade(GB)","CPU(Ghz)",
+                             "Memoria(GB)","Sistema Operativo"));
+        for(int i = 1; i <= testeLista.quantidade(); i++){
+            testeLista.mostrar();
+        }
+    }
+    public static void subMenuEliminarApp(){
+        
+    }
+    public static void subMenuEliminarRede(){
+        
+    }
     public static void subMenuEquiUpdate() {
         byte opc;
         do{
