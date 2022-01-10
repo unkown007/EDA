@@ -4,9 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import lista.Lista;
+import lista.No;
 import validacao.Validacao;
 import lista.Operacoes;
+import object.AplicacaoInstalada;
 import object.Equipamento;
+import tarefa.Alterar;
+import tarefa.Inserir;
+import tarefa.Remover;
 import tarefa.Tarefa;
 
 public class Menu {
@@ -34,31 +39,7 @@ public class Menu {
         }while(opc != 0);
     }
     
-    public static void menuEquipamento() throws IOException, ParseException {
-        byte opc;
-        do{
-            System.out.print("\n\tEquipamento:");
-            System.out.print("\n1 - Visualizar");
-            System.out.print("\n2 - Inserir");
-            System.out.print("\n3 - Alterar");
-            System.out.print("\n4 - Eliminiar");
-            System.out.print("\n0 - Voltar");
-            opc = (byte) Validacao.num("\nR: ",0,4);
-            switch(opc){
-               case 1:
-                    subMenuEquiVisual(); break;
-               case 2:
-                    subMenuEquiInserir(); break;
-               case 3:
-                    subMenuEquiUpdate(); break;
-               case 4:
-                    subMenuEquiEliminar(); break;
-               
-            }
-        }while(opc != 0);
-    }
-    
-    public static void subMenuEquiEliminar() {
+    /*public static void subMenuEquiEliminar() {
         byte opc;
         do{
             System.out.print("\n\tEliminar:");
@@ -76,25 +57,95 @@ public class Menu {
                    subMenuEliminarRede(); break;
             }
         }while(opc != 0);
-    }
-    public static void subMenuEliminarEquipamento(){
-        System.out.println(
-                    String.format(
-                            "%-10s%-20s %-20s %-20s %-20s %-20s %-20s"
-                            ,"ID","Data de Aquisicao","Garantia",
-                             "Capacidade(GB)","CPU(Ghz)",
-                             "Memoria(GB)","Sistema Operativo"));
-        for(int i = 1; i <= testeLista.quantidade(); i++){
-            testeLista.mostrar();
+    }*/
+    
+    /*public static void subMenuEliminarEquipamento(){
+        app.mostrar();
+        
+        System.out.println("\nELIMINAR EQUIPAMENTO\n");
+        int id1 =(int) Validacao.num("ID(equipamento): ", 1, 99999);
+        
+        if(app.getNo(id1) == null) {
+            System.out.println("Equipamento nao encontrada\n");
+            return;
+        }
+        
+        byte conf =(byte) Validacao.num("Confirmacao da elimanacao\n1 - SIM/t"
+                + "2 - NAO",1,2);
+        if(conf == 1){
+            app.remover(id1);
+            System.out.println("removido com sucesso!\n");
         }
     }
+    
     public static void subMenuEliminarApp(){
+        No<Equipamento> tmp;
         
+        System.out.println();
+        app.mostrar();
+        
+        System.out.println("\n\tELIMINAR APP INSTALADA\n");
+        int id1 =(int) Validacao.num("ID(equipamento): ", 1, 99999);
+        
+        tmp = app.getNo(id1);
+        
+        if(tmp == null) {
+            System.out.println("Equipamento nao encontrada\n");
+            return;
+        }
+        
+        System.out.println();
+        tmp.ob.getApp().mostrar();
+        
+        System.out.println();
+        int id2 =(int) Validacao.num("ID(app instalada): ",1, 99999);
+        
+        if(tmp.ob.getApp().getNo(id2) == null) {
+            System.out.println("App nao encontrada\n");
+            return;
+        }
+        
+        byte conf =(byte) Validacao.num("Confirmacao da elimanacao\n1 - SIM/t"
+                + "2 - NAO",1,2);
+        if(conf == 1){
+            tmp.ob.getApp().remover(id2);
+            System.out.println("removido com sucesso!\n");
+        }
     }
     public static void subMenuEliminarRede(){
+        No<Equipamento> tmp;
         
-    }
-    public static void subMenuEquiUpdate() {
+        app.mostrar();
+        
+        System.out.println("\nELIMINAR PLACA DE REDE\n");
+        int id1 =(int) Validacao.num("ID(equipamento): ", 1, 99999);
+        
+        tmp = app.getNo(id1);
+        
+        if(tmp == null) {
+            System.out.println("Equipamento nao encontrado\n");
+            return;
+        }
+        
+        tmp.ob.getRede().mostrar();
+        
+        System.out.println("\n");
+        int id2 =(int) Validacao.num("ID(Placa rede): ",1, 99999);
+        
+        if(tmp.ob.getRede().getNo(id2) == null) {
+            System.out.println("Placa de rede nao encontrada\n");
+            return;
+        }
+        
+        byte conf =(byte) Validacao.num("Confirmacao da elimanacao\n1 - SIM/t"
+                + "2 - NAO",1,2);
+        if(conf == 1){
+            tmp.ob.getRede().remover(id2);
+            System.out.println("removido com sucesso!\n");
+        }
+    }*/
+    
+    /*public static void subMenuEquiUpdate() {
         byte opc;
         do{
             System.out.print("\n\tAlterar:");
@@ -122,64 +173,60 @@ public class Menu {
                     ; break;
                 case 2:
                    ; break;
-            }
-        }while(opc != 0);
-    }
-     public static void subMenuEquiVisual() {
-        byte opc;
-        do{
-            System.out.print("\n\tVisualizar:");
-            System.out.print("\n1 - Equipamento");
-            System.out.print("\n2 - Aplicacoes Instaladas");
-            System.out.print("\n3 - Placa de Rede");
-            System.out.print("\n0 - Voltar");
-            opc = (byte) Validacao.num("\nR: ",0,3);
-            switch(opc){
-                case 1:
-                    app.mostrar(); break;
-                case 2:
-                   subMenuEquiVisualApp(); break;
                 case 3:
-                    subMenuEquiVisualRede(); break;
-              
-            }
-        }while(opc != 0);
-    }
-     public static void subMenuEquiVisualRede(){
-         System.out.print("\n\tPlaca de Rede:");
-         for(int i = 1; i <= app.quantidade(); i++){
-            /*for(int k = 1; k <= app.getNo(i).ob.getRede().quantidade(); k++)
-                if(app.getNo(k) != null)*/
-                    app.getNo(i).ob.getRede().mostrar();
-         }
-     }
-     public static void subMenuEquiVisualApp(){
-         System.out.print("\n\tAplicacoes Instaladas:");
-         for(int i = 1; i <= app.quantidade(); i++){
-            /*for(int k = 1; k <= app.getNo(i).ob.getApp().quantidade(); k++)
-                if(app.getNo(k) != null)*/
-                      app.getNo(i).ob.getApp().mostrar();
-         }
-     }
-     
-    public static void subMenuEquiInserir() throws IOException, ParseException {
-        byte opc;
-        do{
-            System.out.print("\n\tInserir:");
-            System.out.print("\n1 - Equipamento");
-            System.out.print("\n0 - Voltar");
-            opc = (byte) Validacao.num("\nR: ",0,1);
-            switch(opc){
-                case 1:
-                    Tarefa.addEquipamento(app); break;
+                   ; break;
             }
         }while(opc != 0);
     }
     
-    /* public static void subMenuEquiInserirEq() {
+    public static void appUpdate(){
+        
+        
+        
+    }
+    
+    public static void equipUpdate(){
+        
+    }
+    
+    public static void redeUpdate(){
+        
+    }*/
+    
+    public static void menuEquipamento() throws IOException, ParseException {
         byte opc;
         do{
-            System.out.print("\n\tInserir:");
+            System.out.print("\n\tEquipamento:");
+            System.out.print("\n1 - Visualizar");
+            System.out.print("\n2 - Inserir");
+            System.out.print("\n3 - Alterar");
+            System.out.print("\n4 - Eliminiar");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,4);
+            switch(opc){
+                case 1:
+                    subMenuEquiVisual(); 
+                break;
+                case 2:
+                    subMenuEquiInser();
+                break;
+                case 3:
+                    subMenuEquiAlter(); 
+                break;
+                case 4:
+                    subMenuEquiRemo(); 
+                break;
+            }
+        }while(opc != 0);
+    }
+    
+    
+    // -------------------------------------------------------------
+    
+    public static void subMenuEquiInser() throws IOException, ParseException {
+        byte opc;
+        do{
+            System.out.print("\n\tINSERIR:");
             System.out.print("\n1 - Equipamento");
             System.out.print("\n2 - Aplicacoes Instaladas");
             System.out.print("\n3 - Placa de Rede");
@@ -187,12 +234,140 @@ public class Menu {
             opc = (byte) Validacao.num("\nR: ",0,3);
             switch(opc){
                 case 1:
-                    ; break;
+                    Inserir.addEquipamento(app);
+                break;
                 case 2:
-                   ; break;
+                    Inserir.incAppInstaladas(app);
+                break;
+                case 3:
+                    Inserir.incPlacaRede(app);
+                break;
             }
         }while(opc != 0);
-    } */
+    }
+    
+    public static void subMenuEquiAlter() throws IOException, ParseException {
+        byte opc;
+        do{
+            System.out.print("\n\tALTERAR:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Aplicacoes Instaladas");
+            System.out.print("\n3 - Placa de Rede");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                   Alterar.alterarEquipamento(app);
+                break;
+                case 2:
+                   Alterar.alterAppIns(app);
+                break;
+                case 3:
+                   Alterar.alterPlaca(app);
+                break;
+            }
+        }while(opc != 0);
+    }
+    
+    public static void subMenuEquiRemo() throws IOException {
+        byte opc;
+        do{
+            System.out.print("\n\tELIMINAR:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Aplicacoes Instaladas");
+            System.out.print("\n3 - Placa de Rede");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    Remover.removerEquipamento(app);
+                break;
+                case 2:
+                    Remover.rmAppinst(app);
+                break;
+                case 3:
+                    Remover.rmPlaca(app);
+                break;
+            }
+        }while(opc != 0);
+    }
+    
+    public static void subMenuEquiVisual() {
+        byte opc;
+        do{
+            System.out.print("\n\tVISUALIZAR:");
+            System.out.print("\n1 - Equipamento");
+            System.out.print("\n2 - Aplicacoes Instaladas");
+            System.out.print("\n3 - Placa de Rede");
+            System.out.print("\n0 - Voltar");
+            opc = (byte) Validacao.num("\nR: ",0,3);
+            switch(opc){
+                case 1:
+                    app.mostrar(); 
+                break;
+                case 2:
+                   subMenuEquiVisualApp(); 
+                break;
+                case 3:
+                    subMenuEquiVisualRede(); 
+                break;
+            }
+        }while(opc != 0);
+    }
+    
+    // -------------------------------------------------------------
+    
+    public static void subMenuEquiVisualRede(){
+         //int i=1;
+         
+         System.out.println();
+         app.mostrar();
+         
+         System.out.println();
+         int id1 =(int) Validacao.num("ID(equipamento): ", 1, 99999);
+         
+         if(app.getNo(id1) == null) {
+            System.out.println("Equipamento nao encontrado\n");
+            return;
+         }
+         
+         System.out.print("\n\tPLACA DE REDE:\n");
+         
+         app.getNo(id1).ob.getRede().mostrar();
+         
+         /*while(app.getNo(i) != null) {
+            System.out.println("EQUIPAMENTO: " + i);
+             app.getNo(i).ob.getRede().mostrar();
+             System.out.println();
+             i++;
+         }*/
+     }
+    
+    public static void subMenuEquiVisualApp(){
+         //int i=1;
+         
+         System.out.println();
+         app.mostrar();
+         
+         System.out.println();
+         int id1 =(int) Validacao.num("ID(equipamento): ", 1, 99999);
+         
+         if(app.getNo(id1) == null) {
+            System.out.println("Equipamento nao encontrado\n");
+            return;
+         }
+         
+         System.out.print("\n\tAPP INSTALADAS:\n");
+         
+         app.getNo(id1).ob.getApp().mostrar();
+         
+         /*while(app.getNo(i) != null) {
+            System.out.println("EQUIPAMENTO: " + i);
+            app.getNo(i).ob.getApp().mostrar();
+            System.out.println();
+            i++;
+         }*/
+     }
      
     private static void menuPesquisar() throws ParseException {
         byte opc;
@@ -228,7 +403,7 @@ public class Menu {
         
     }
     
-     private static void subPesquisarSO() throws ParseException {
+    private static void subPesquisarSO() throws ParseException {
          String so = Validacao.texto("Informe o Sistema Operativo: ", 2);
          testeLista = Tarefa.pesquisaSO(app, so);
          if(testeLista != null)
@@ -237,7 +412,7 @@ public class Menu {
             System.out.println("Nenhum equipamento com SO "+so);
          
      }
-     private static void menuListar() throws ParseException {
+    private static void menuListar() throws ParseException {
         byte opc;
         do{
             System.out.print("\n\tListar:");
@@ -308,6 +483,5 @@ public class Menu {
                 "\nMemoria: "+Tarefa.getTotalRam(app)+""
                 + "\nCapacidade dos HDs: "+Tarefa.getTotalHd(app));
     }
-    
 }
 
