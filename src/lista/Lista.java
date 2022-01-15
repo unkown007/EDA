@@ -1,8 +1,9 @@
 package lista;
 
+import java.io.Serializable;
 import object.Table;
 
-public class Lista<D extends Table> implements Operacoes<D> {
+public class Lista<D extends Table> implements Operacoes<D>, Serializable {
     public No<D> inicio;
     private int tamanho;
     

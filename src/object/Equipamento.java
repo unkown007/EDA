@@ -1,5 +1,6 @@
 package object;
 
+import java.io.Serializable;
 import static java.lang.System.gc;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import lista.*;
 
-public class Equipamento implements Table {
+public class Equipamento implements Table, Serializable {
     private SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
     GregorianCalendar gc = new GregorianCalendar();
     private Date dataAquisicao, garantiaData;
@@ -25,6 +26,7 @@ public class Equipamento implements Table {
                        Lista<AplicacaoInstalada> app,
                        Lista<PlacaRede> rede) throws ParseException {
         this.dataAquisicao = dataAquisicao;
+        gc.setTime(dataAquisicao);
         gc.add(gc.MONTH, garantia);
         this.garantiaData = dataFormatada.parse(dataFormatada.format(gc.getTime()));
         this.garantia = garantia;

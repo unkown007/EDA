@@ -1,6 +1,8 @@
 package object;
 
-public class PlacaRede implements Table {
+import java.io.Serializable;
+
+public class PlacaRede implements Table, Serializable {
     private String enderecoIP;
     private String mascaraRede;
     private String enderecoBroadcast;

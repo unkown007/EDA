@@ -3,6 +3,7 @@ package tarefa;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import lista.*;
 import object.*;
@@ -46,8 +47,10 @@ public class Inserir {
             //var dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
             String desc = Validacao.texto("Descricao: ",2);
             String versao = Validacao.texto("Versao: ",2);
+            String dataAtivacao = Validacao.texto("Data ativacao da licenca (dd/mm/yyyy): ", 2);
             byte validade = (byte)Validacao.num("Validade [1(Mes)]: ",1,999);
-            
+            Date ativacao = dataFormatada.parse(dataAtivacao);
+            gc.setTime(ativacao);
             gc.add(gc.MONTH, validade); // pega a data atual do calendario e acrecenta somente o mes
                                         //conforme o numero de validade, mantendo o dia da semana 
                                         
