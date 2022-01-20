@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- *
- * @author vm
- */
 public class AplicacaoInstalada implements Table, Serializable {
     private SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
     private String descricao;
